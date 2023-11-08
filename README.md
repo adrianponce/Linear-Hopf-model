@@ -18,6 +18,9 @@ Network with delays:
 	- C :  Example coupling matrix (N=250 nodes).
 	- D :  Example distances matrix (N=250 nodes).
 
+If you use this toolbox as part of a published academic work, please cite it as:
+Ponce-Alvarez A and Deco G (2023) The Hopf whole-brain model and its linear approximation.
+
 References:
 
-Deco, G. et al. Single or multiple frequency generators in on-going brain activity: A mechanistic whole-brain model of empirical MEG data. NeuroImage 152, 538–550 (2017).
+Deco, G. et al. (2017) Single or multiple frequency generators in on-going brain activity: A mechanistic whole-brain model of empirical MEG data. NeuroImage 152, 538–550.
