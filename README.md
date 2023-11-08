@@ -1,2 +1,22 @@
 # Linear-Hopf-model
 Estimation of network statistics of the Hopf whole-brain model using a linear noise approximation
+
+The present codes estimate the network statistics of the Hopf whole-brain model (Deco et al. 2017). This model corresponds to a network of nonlinear oscillators described by a normal form of a supercritical Hopf bifurcation. In the case of weak noise and small non-linearities, one can estimate the network statistics using a linear approximation, without the need of simulations. In the linear approximation, the stationary instantaneous and lagged covariance matrices, the cross-spectrum, and the PSDs of the model can be obtained through algebraic operations including the Jacobian matrix. This can be done both in the homogeneous and the heterogeneous cases, and also in the presence of time delays.
+
+Content:
+Network without delays:
+- StochSim_HopfNet.m : stochastic numerical simulations of the network of N hopf nodes.
+- HopfModel_LNA.m :  calculates the covariance, the lagged-covariance, the power spectral density, and the cross-spectrum using the linear approximation.
+- run_simulations_vs_LNA : compares the model statistics obtained using numerical simulations and using the linear approximation.
+
+Network with delays:
+- StochSim_DelayedHopfNet.m : stochastic numerical simulations of the network of N hopf nodes with delayed interactions.
+- DelayedHopfModel_LNA.m :  calculates the covariance, the lagged-covariance, the power spectral density, and the cross-spectrum using the linear approximation, in the presence of delayed interactions.
+- run_simulations_vs_LNA : compares the model statistics obtained using numerical simulations and using the linear approximation, in the presence of delayed interactions.
+
+- Connectome.mat : 
+	- C :  Example coupling matrix (N=250 nodes).
+	- D :  Example distances matrix (N=250 nodes).
+
+References:
+Deco, G. et al. Single or multiple frequency generators in on-going brain activity: A mechanistic whole-brain model of empirical MEG data. NeuroImage 152, 538–550 (2017).
