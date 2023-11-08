@@ -19,6 +19,7 @@ Network with delays:
 	- D :  Example distances matrix (N=250 nodes).
 
 If you use this toolbox as part of a published academic work, please cite it as:
+
 Ponce-Alvarez A and Deco G (2023) The Hopf whole-brain model and its linear approximation.
 
 References:
