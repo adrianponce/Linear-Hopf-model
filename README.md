@@ -19,4 +19,5 @@ Network with delays:
 	- D :  Example distances matrix (N=250 nodes).
 
 References:
+
 Deco, G. et al. Single or multiple frequency generators in on-going brain activity: A mechanistic whole-brain model of empirical MEG data. NeuroImage 152, 538–550 (2017).
