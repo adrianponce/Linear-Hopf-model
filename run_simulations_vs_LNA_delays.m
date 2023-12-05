@@ -11,7 +11,7 @@
 % load the anatomical connectivity of the brain:
 %---------------------------------------------------
 
-load Connectome.mat % C: structural conn.; D: distances between ROIs [mm]
+load Connectome250.mat % C: structural conn.; D: distances between ROIs [mm]
 N = size(C,1);
 D = D/1000; % in meters
 v = .07; % transmission velocity in m/s 
