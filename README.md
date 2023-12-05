@@ -14,9 +14,13 @@ Network with delays:
 - DelayedHopfModel_LNA.m :  calculates the covariance, the lagged-covariance, the power spectral density, and the cross-spectrum using the linear approximation, in the presence of delayed interactions.
 - run_simulations_vs_LNA : compares the model statistics obtained using numerical simulations and using the linear approximation, in the presence of delayed interactions.
 
-- Connectome.mat : 
+- ConnectomeN250.mat : 
 	- C :  Example coupling matrix (N=250 nodes).
 	- D :  Example distances matrix (N=250 nodes).
+
+ - ConnectomeN1000.mat : 
+	- C :  Example coupling matrix (N=1000 nodes).
+	- D :  Example distances matrix (N=1000 nodes).
 
 If you use this toolbox as part of a published academic work, please cite it as:
 
