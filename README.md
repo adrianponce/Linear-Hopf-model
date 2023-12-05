@@ -6,12 +6,12 @@ The present codes estimate the network statistics of the Hopf whole-brain model 
 Content:
 Network without delays:
 - StochSim_HopfNet.m : stochastic numerical simulations of the network of N hopf nodes.
-- HopfModel_LNA.m :  calculates the covariance, the lagged-covariance, the power spectral density, and the cross-spectrum using the linear approximation.
+- HopfModel_LNA.m :  calculates the network's statistics (covariance, the lagged-covariance, the power spectral density, and the cross-spectrum) using the linear approximation.
 - run_simulations_vs_LNA : compares the model statistics obtained using numerical simulations and using the linear approximation.
 
 Network with delays:
 - StochSim_DelayedHopfNet.m : stochastic numerical simulations of the network of N hopf nodes with delayed interactions.
-- DelayedHopfModel_LNA.m :  calculates the covariance, the lagged-covariance, the power spectral density, and the cross-spectrum using the linear approximation, in the presence of delayed interactions.
+- DelayedHopfModel_LNA.m :  calculates the network's statistics using the linear approximation, in the presence of delayed interactions.
 - run_simulations_vs_LNA : compares the model statistics obtained using numerical simulations and using the linear approximation, in the presence of delayed interactions.
 
 - Connectome250.mat : 
