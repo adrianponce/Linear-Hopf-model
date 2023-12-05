@@ -26,6 +26,7 @@ If you use this toolbox as part of a published academic work, please cite it as:
 
 Ponce-Alvarez A and Deco G (2023) The Hopf whole-brain model and its linear approximation.
 
-References:
+-----------------
+Other references:
 
 Deco, G. et al. (2017) Single or multiple frequency generators in on-going brain activity: A mechanistic whole-brain model of empirical MEG data. NeuroImage 152, 538–550.
