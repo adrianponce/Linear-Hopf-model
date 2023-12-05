@@ -9,7 +9,7 @@
 % load the anatomical connectivity of the brain:
 %---------------------------------------------------
 
-load Connectome.mat
+load Connectome250.mat
 N = size(C,1);
 
 % Model parameters:
