@@ -21,6 +21,7 @@ Network with delays:
  - Connectome1000.mat : 
 	- C :  Example coupling matrix (N=1000 nodes).
 	- D :  Example distances matrix (N=1000 nodes).
+ 	- FC : Example functional connectivity matrix (N=1000 nodes). 
 
 If you use this toolbox as part of a published academic work, please cite it as:
 
