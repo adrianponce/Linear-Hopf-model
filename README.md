@@ -12,7 +12,11 @@ Network without delays:
 Network with delays:
 - StochSim_DelayedHopfNet.m : stochastic numerical simulations of the network of N hopf nodes with delayed interactions.
 - DelayedHopfModel_LNA.m :  calculates the network's statistics using the linear approximation, in the presence of delayed interactions.
-- run_simulations_vs_LNA : compares the model statistics obtained using numerical simulations and using the linear approximation, in the presence of delayed interactions.
+- run_simulations_vs_LNA_delay : compares the model statistics obtained using numerical simulations and using the linear approximation, in the presence of delayed interactions.
+
+- Connectome20.mat : 
+	- C :  Example coupling matrix (N=20 nodes).
+	- D :  Example distances matrix (N=20 nodes).
 
 - Connectome250.mat : 
 	- C :  Example coupling matrix (N=250 nodes).
@@ -22,6 +26,8 @@ Network with delays:
 	- C :  Example coupling matrix (N=1000 nodes).
 	- D :  Example distances matrix (N=1000 nodes).
  	- FC : Example functional connectivity matrix (N=1000 nodes). 
+
+To save time, use Connectome20.mat to test the codes. 
 
 If you use this toolbox as part of a published academic work, please cite it as:
 
