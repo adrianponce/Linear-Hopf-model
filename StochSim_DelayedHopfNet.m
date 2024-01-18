@@ -1,5 +1,5 @@
 
-function [FC,Cov,Cov_t,lags,PowSpect,freq]=StochSim_DelayedHopfNet(C,D,v,a,g,wo,sigma,T,nTrials,dt)
+function [FC,Cov,PowSpect,freq,Cov_t,lags]=StochSim_DelayedHopfNet(C,D,v,a,g,wo,sigma,T,nTrials,dt)
 %
 % stochastic network of N hopf nodes
 % each node evolves as follows:
@@ -24,10 +24,10 @@ function [FC,Cov,Cov_t,lags,PowSpect,freq]=StochSim_DelayedHopfNet(C,D,v,a,g,wo,
 % Outputs:
 %  - FC : functional connectivity of real(z)
 %  - Cov : covariance matrix of real(z)
-%  - Cov_t : lagged covariance of real(z) (N x N x Nlags)
-%  - lags : lags of the lagged covariance
 %  - PowSpect : power spectral density (PSD) of real(z)
 %  - freq : frequencies of the PSD
+%  - Cov_t : lagged covariance of real(z) (N x N x Nlags)
+%  - lags : lags of the lagged covariance
 %
 % Adrián Ponce-Alvarez 06-07-2022
 %--------------------------------------------------------------------------
@@ -46,7 +46,7 @@ N = size(C,1);
 B = sum(C,2);   
 
 
-if nargin<10
+if nargin<10 % default value for dt:
 dt = 0.001; %in sec
 end
 
@@ -56,11 +56,10 @@ maxD=max(max(Delays)); % get the maximal delay
 
 
 % add time to reach stationary regime:
-Ttran = 500; % in sec
+Ttran = 20; % in sec
 
 tspan = 0:dt:(T+Ttran);
 L = length(tspan);
-
 Ltran = length(0:dt:Ttran);
 
 % downsampling:
@@ -68,29 +67,19 @@ ds = 10;
 Tds=length(0:ds*dt:(T+Ttran));
 Tdstran = length( 0:dt*ds:Ttran );
 
-% number of lags:
-nn = 500;
+% number of lags to calculate the lagged covariances:
+nn = 200;
 
 % prepare paramaters for calculating the spectral density
 Fs = 1/(dt); % sampling freq
 TT = (L-Ltran);
 freq = 0:Fs/TT:Fs/2;
-%[~,freq] = pspectrum(zeros(1,TT),Fs);
-% nfreqs=length(freq);
-% PowSpect=zeros(nfreqs,N);
-
-
-% % prepare paramaters for calculating the spectral density
-% Fs = 1/(dt*ds); % sampling freq
-% TT = (Tds-Tdstran);
-% freq = 0:Fs/TT:Fs/2;
 nfreqs=length(freq);
 PowSpect=zeros(nfreqs,N);
 
 % Simulation -------------------------------------------------------------
 Cov = zeros(N);
 Cov_t = zeros(N,N,2*nn+1);
-
 
 tic
     
@@ -117,7 +106,7 @@ tic
                         + dt*u ...
                         + sqrt(dt)*sigma*randn(N,1) + 1i*sqrt(dt)*sigma*randn(N,1);              
 
-                    if mod(t,ds)==0
+                    if mod(t,ds)==0 % downsampling:
                        Z(:,c)=z(:,t); 
                        c=c+1;
                     end
@@ -139,12 +128,11 @@ tic
       ii = floor(TT/2+1);
       xdft = xdft(1:ii);
       psdx = 2*(1/(Fs*TT)) * abs(xdft).^2;
-%       [psdx,freq] = pspectrum(x(:,n),Fs);
       PowSpect(:,n) = PowSpect(:,n) + psdx/nTrials;
-     end
-     
+     end   
      
      % Lagged covariance:
+     % (we use the downsampled signals)
      CovLagged = zeros(N,N,2*nn+1);
      for i=1:N
          for j=1:N
@@ -160,7 +148,7 @@ tic
 lags = lags*ds*dt;
 Cov_t = Cov_t/(Tds-Tdstran);  % normalized lagged-covariance
 
-% correlation matrix:
+% covariance --> correlation matrix:
 FC = corrcov(Cov);
 comp_time = toc/60;    
 fprintf('finished after: %g min \n',comp_time)    

@@ -21,9 +21,7 @@ function [FC,Cov,PSD,freqs,Csp,A]=DelayedHopfModel_LNA(C,D,v,a,g,wo,sigma,vararg
 % Outputs:
 %   - FC  : correlation matrix of real(z)
 %   - Cov : covariance matrix of real(z)
-%   - Ct  : lagged covariance of real(z)
 %   - PSD : power spectral density of real(z)
-%   - lags: lags used for Ct
 %   - freqs: frequencies used for PSD
 %   - Csp : cross-spectrum
 %   - A : Jacobian matrix
@@ -39,18 +37,16 @@ if ~iscolumn(wo)
     wo = transpose(wo);
 end
 
-
 N = size(C,1);
 
+% Delays matrix:
 Del = [D/v zeros(N);zeros(N) D/v]; % in sec
 
 
  % Jacobian matrix:
     
     s = sum(C,2);   % node strength
-    B = diag( s );
-    
-    
+    B = diag( s );   
     
     % no-delays part:
     Axx = diag(a)*eye(N) - g*B;
@@ -66,9 +62,8 @@ Del = [D/v zeros(N);zeros(N) D/v]; % in sec
     Ayx_d = zeros(N);
     A_d = [Axx_d Axy_d; Ayx_d Ayy_d];
     
-    A = Anod + A_d;
-    
-    
+    A = Anod + A_d; % Jacobian matrix
+        
     % input noise covariance:
     %Qn = sigma^2*eye(2*N);
     
