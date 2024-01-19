@@ -55,7 +55,6 @@ nn = 500;
 Fs = 1/(dt*ds); % sampling freq
 
 freq = 0:Fs/Tds:Fs/2;
-%[~,freq] = pspectrum(zeros(1,Tds),Fs);
 
 nfreqs=length(freq);
 PowSpect=zeros(nfreqs,N);
@@ -63,7 +62,6 @@ PowSpect=zeros(nfreqs,N);
 % Simulation -------------------------------------------------------------
 Cov = zeros(N);
 Cov_t = zeros(N,N,2*nn+1);
-
 
 tic
     
@@ -129,7 +127,7 @@ tic
     end
 
 lags = lags*ds*dt;
-Cov_t = Cov_t/Tds;  % normalized lagged-covariance
+Cov_t = Cov_t/Tds;  % normalized lagged-covariance resulting from xcov.m
 
 % correlation matrix:
 FC = corrcov(Cov);
