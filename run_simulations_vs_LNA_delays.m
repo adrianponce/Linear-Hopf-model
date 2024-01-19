@@ -43,7 +43,7 @@ nTrials = 100; % number of repetitions of the stochastic simulations
 dt = 0.005; % integration step
 
 tic
-[FC,Cov,PSD,freq]=StochSim_DelayedHopfNet(C,D,v,a,g,wo,sigma,T,nTrials,dt); 
+[FC,Cov,PSD,freq,Cov_t,lags]=StochSim_DelayedHopfNet(C,D,v,a,g,wo,sigma,T,nTrials,dt); 
 %   - FC  : correlation matrix of real(z)
 %   - Cov : covariance matrix of real(z)
 %   - PSD : power spectral density of real(z)
@@ -53,19 +53,24 @@ comp_time = toc/60;
 
 % Analytical -------------------------------------------------------------
 tic
-[FC_lna,Cov_lna,PSD_lna,freqs_lna]=DelayedHopfModel_LNA(C,D,v,a,g,wo,sigma,freq);
+[FC_lna,Cov_lna,PSD_lna,freqs_lna,Csp]=DelayedHopfModel_LNA(C,D,v,a,g,wo,sigma,freq);
 %   - FC_lna  : correlation matrix of real(z)
 %   - Cov_lna : covariance matrix of real(z)
 %   - PSD_lna : power spectral density of real(z)
 %   - freq_lna : frequencies of the PSD_lna
 comp_time_lna = toc/60;    
 
+% Cross-covariance is the inverse Fourier transform of the cross-spectrum:
+tic
+[Cov_t_lna,lags_lna] = CSPtoCrossCov(Csp,freqs_lna,lags);
+comp_time_ct = toc/60;  
+
 
 % Figures:
 %--------------------------------------------------------------------------
 
 figure
-
+% Covariances:
 plot(Cov(:),Cov_lna(:),'k.','markersize',9)
 grid on
 hold on
@@ -92,4 +97,38 @@ set(gca,'xlim',[0 5],'xtick',0:1:5,'fontsize',10,'linewidth',1)
 xlabel('frequency \nu/\nu_{0}','fontsize',11)
 ylabel('PSD:  \phi(\nu)/\sigma^2','fontsize',11)
 box on
+
+
+figure
+% Autocorrelation of three example ROIs:
+rs = randsample(1:N,3);
+for n = 1:3
+axes('position',[.12 .75-(n-1)*.3 .8 .2])    
+
+acf_sim = squeeze(Cov_t(rs(n),rs(n),:));
+acf_LNA = squeeze(Cov_t_lna(rs(n),rs(n),:));
+plot(lags,acf_sim,'k-','linewidth',2)
+hold on
+plot(lags_lna,acf_LNA,'r:','linewidth',2)
+
+set(gca,'xlim',[0 3],'fontsize',9)
+xlabel('lag \itt\rm [s]')
+ylabel('C(\itt\rm)')
+end
+
+figure
+% Cross-correlation of the most connected pair of ROIs
+[~,ind] = max(C(:));
+[i,j] = ind2sub(size(C),ind);
+acf_sim = squeeze(Cov_t(i,j,:));
+acf_LNA = squeeze(Cov_t_lna(i,j,:));
+plot(lags,acf_sim,'k-','linewidth',2)
+hold on
+plot(lags_lna,acf_LNA,'r:','linewidth',2)
+set(gca,'xlim',[0 3],'fontsize',9)
+
+xlabel('lag \itt\rm [s]')
+ylabel('C_{\itjk\rm}(\itt\rm)')
+
+
 
