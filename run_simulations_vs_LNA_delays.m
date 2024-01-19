@@ -116,19 +116,5 @@ xlabel('lag \itt\rm [s]')
 ylabel('C(\itt\rm)')
 end
 
-figure
-% Cross-correlation of the most connected pair of ROIs
-[~,ind] = max(C(:));
-[i,j] = ind2sub(size(C),ind);
-acf_sim = squeeze(Cov_t(i,j,:));
-acf_LNA = squeeze(Cov_t_lna(i,j,:));
-plot(lags,acf_sim,'k-','linewidth',2)
-hold on
-plot(lags_lna,acf_LNA,'r:','linewidth',2)
-set(gca,'xlim',[0 3],'fontsize',9)
-
-xlabel('lag \itt\rm [s]')
-ylabel('C_{\itjk\rm}(\itt\rm)')
-
 
 
