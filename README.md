@@ -31,7 +31,7 @@ To save time, use Connectome20.mat to test the codes.
 
 If you use this toolbox as part of a published academic work, please cite it as:
 
-Ponce-Alvarez A and Deco G (2023) The Hopf whole-brain model and its linear approximation.
+Ponce-Alvarez A and Deco G (2023) The Hopf whole-brain model and its linear approximation. Scientific Reports.
 
 _________________
 Other references:
